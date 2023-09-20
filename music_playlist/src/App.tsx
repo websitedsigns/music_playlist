@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import PlaylistItem from './PlaylistItem';
 
 function App() {
@@ -26,19 +26,26 @@ function App() {
       album: 'Album Name',
       length: '4:23',
     },
+
   ] as Track[]);
 
-  return (
+  const [ currentTrack, updateCurrentTrack ] = useState(-1);
 
+  return (
     <div className="min-h-screen bg-slate-800 text-white">
       <main className="max-w-screen-md mx-auto">
         <header className="bg-pink-600 text-2xl font-bold p-3">
           <h1>Sounds Good! - Epic Playlist</h1>
         </header>
-
         <ol className="border-4 border-pink-600">
-          {items.map((track) => { return <PlaylistItem key={track.id} track={track}/>})}
+          {items.map((track) => { return <PlaylistItem
+            key={track.id}
+            track={track}
+            state={track.id === currentTrack ? 'playing' : 'paused'}
+            onClick={() => { updateCurrentTrack(track.id) }}
+          />})}
         </ol>
+
       </main>
     </div>
   )
